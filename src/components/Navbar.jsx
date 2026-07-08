@@ -5,8 +5,8 @@ import bookmark from "../assets/bookmark.png"
 import { Link, Links } from 'react-router-dom'
 import { HiMenu } from "react-icons/hi";
 
-const Navbar = () => {
-    const categories = ["business", "sports", "entertainment", "Technology", "health", "science"]
+const Navbar = ({category,setCategory}) => {
+    const categories = ["business", "sports", "entertainment", "technology", "health", "science"]
     return (
         <nav className="w-full sticky top-0 z-50 flex items-center justify-between bg-white border-b border-gray-200 px-4 xl:px-8 py-4 shadow-sm">
             
@@ -19,7 +19,9 @@ const Navbar = () => {
                 <ul className="flex items-center gap-6 ">
                 {categories.map((category) => (
                     <li key={category} className="text-gray-700 font-medium hover:text-blue-600 cursor-pointer transition-colors duration-200">
-                        <Link to="/">{category}</Link>
+                        <button className='bg-transparent border-none p-0 text-gray-700 font-medium hover:text-blue-600 cursor-pointer' onClick={()=>{
+                            setCategory(category)
+                        }} to="/">{category}</button>
                     </li>
                 ))}
             </ul></div>
