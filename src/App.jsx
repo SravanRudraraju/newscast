@@ -5,12 +5,14 @@ import Login from './pages/Login'
 import NotFound from './pages/NotFound'
 import Bookmarks from './pages/Bookmarks'
 import Navbar from './components/Navbar'
+import NewsCard from './components/NewsCard'
 
 
 const App = () => {
   return (
     <div>
       <Navbar/>
+      
       <Routes>
         <Route path='/' element={<Home/>} />
         <Route path='/login' element={<Login/>} />
