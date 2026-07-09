@@ -3,7 +3,7 @@ import NewsCard from '../components/NewsCard'
 import {getHeadlines} from "../services/newsService"
 
 
-const Home = ({category,search}) => {
+const Home = ({category,search , bookmarks, setBookmarks,addBookmarks}) => {
  
  
   const [articles , setArticles] = useState([])
@@ -19,7 +19,7 @@ const Home = ({category,search}) => {
     <div className='grid gird-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 max-w-7xl mx-auto px-6 py-8 items-center justify-center'>
       
       {articles.map((news,index)=>(
-        <NewsCard key={index}  news = {news} />
+        <NewsCard key={index}  news = {news} bookmarks={bookmarks} setBookmarks={setBookmarks} addBookmarks={addBookmarks} />
       ))}      
       
     </div>

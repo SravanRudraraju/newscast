@@ -4,6 +4,7 @@ import profile from "../assets/profile.png"
 import bookmark from "../assets/bookmark.png"
 import { Link, Links } from 'react-router-dom'
 import { HiMenu } from "react-icons/hi";
+import { BsBookmarkFill } from "react-icons/bs";
 
 const Navbar = ({category,setCategory , search, setSearch,searchInput,setSearchInput}) => {
     const categories = ["business", "sports", "entertainment", "technology", "health", "science"]
@@ -38,7 +39,10 @@ const Navbar = ({category,setCategory , search, setSearch,searchInput,setSearchI
             
             className="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:border-blue-500" type="search" placeholder='search news...' /></div>
             <div className="flex items-center gap-4 ">
-                <Link to="/bookmarks" className="text-gray-700 font-medium hover:text-blue-600 transition-colors duration-200"><img className='h-8 w-10 hidden md:block' src={bookmark} alt="" /></Link>
+                <Link to="/bookmarks" className='text-3xl text-red-800 hidden md:block font-medium hover:text-blue-600 transition-colors duration-200' >
+                 
+                    <BsBookmarkFill/>
+                    </Link>
 
                 <img className="w-9 h-9 rounded-full cursor-pointer shrink-0" src={profile} alt="profile" />
             </div>

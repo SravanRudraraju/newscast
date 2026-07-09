@@ -1,7 +1,10 @@
 import React from 'react'
 import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 
-const NewsCard = ({ news }) => {
+const NewsCard = ({ news ,bookmarks,setBookmarks,addBookmarks}) => {
+
+    const isBookmarked =  bookmarks.some((bookmark)=> bookmark.url === news.url)      
+        
 
 
     return (
@@ -10,8 +13,10 @@ const NewsCard = ({ news }) => {
                 <div className="relative">
                     <img src={news.urlToImage} alt={news.title} className='w-full h-52 object-cover' />
                     <button
-                        className="absolute top-0 right-3 text-3xl text-red-800">
-                        <BsBookmark />
+                        className="absolute top-0 right-3 text-3xl text-red-800" onClick={()=>{
+                            addBookmarks(news)
+                        }}>
+                        {isBookmarked ?  <BsBookmarkFill/> :<BsBookmark/>}
                     </button>
                 </div>
                 <div className='flex flex-col h-full p-4'>
