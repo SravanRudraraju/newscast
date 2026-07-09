@@ -6,7 +6,7 @@ const NewsCard = ({ news }) => {
 
     return (
         <div>
-            <div className="h-[560px] flex flex-col  w-full rounded-xl overflow-hidden bg-white shadow-md">
+            <div className="h-140 flex flex-col  w-full rounded-xl overflow-hidden bg-white shadow-md">
                 <div className="relative">
                     <img src={news.urlToImage} alt={news.title} className='w-full h-52 object-cover' />
                     <button

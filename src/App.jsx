@@ -10,12 +10,14 @@ import NewsCard from './components/NewsCard'
 
 const App = () => {
   const [category,setCategory] = useState("general")
+  const [search,setSearch] = useState("")
+  const [searchInput,setSearchInput] = useState("")
   return (
     <div>
-      <Navbar category={category} setCategory={setCategory}/>
+      <Navbar category={category} search={search} setSearch = {setSearch} setCategory={setCategory} searchInput={searchInput} setSearchInput = {setSearchInput} />
       
       <Routes>
-        <Route path='/' element={<Home category={category}/>} />
+        <Route path='/' element={<Home category={category}  search = {search} />} />
         <Route path='/login' element={<Login/>} />
         <Route path='*' element={<NotFound/>} />
         <Route path='/bookmarks' element={<Bookmarks/>} />

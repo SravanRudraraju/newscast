@@ -5,7 +5,7 @@ import bookmark from "../assets/bookmark.png"
 import { Link, Links } from 'react-router-dom'
 import { HiMenu } from "react-icons/hi";
 
-const Navbar = ({category,setCategory}) => {
+const Navbar = ({category,setCategory , search, setSearch,searchInput,setSearchInput}) => {
     const categories = ["business", "sports", "entertainment", "technology", "health", "science"]
     return (
         <nav className="w-full sticky top-0 z-50 flex items-center justify-between bg-white border-b border-gray-200 px-4 xl:px-8 py-4 shadow-sm">
@@ -25,7 +25,18 @@ const Navbar = ({category,setCategory}) => {
                     </li>
                 ))}
             </ul></div>
-            <div  className="flex-1 mx-4 max-w-xs md:max-w-sm lg:max-w-md"><input   className="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:border-blue-500" type="search" placeholder='search news...' /></div>
+            <div  className="flex-1 mx-4 max-w-xs md:max-w-sm lg:max-w-md">
+                <input 
+                    onChange={(e)=>{
+                        setSearchInput(e.target.value)
+                    }}  
+                    onKeyDown={(e)=>{
+                        if(e.key === "Enter"){
+                            setSearch(searchInput)
+                        }
+                    }}
+            
+            className="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:border-blue-500" type="search" placeholder='search news...' /></div>
             <div className="flex items-center gap-4 ">
                 <Link to="/bookmarks" className="text-gray-700 font-medium hover:text-blue-600 transition-colors duration-200"><img className='h-8 w-10 hidden md:block' src={bookmark} alt="" /></Link>
 

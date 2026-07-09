@@ -3,18 +3,18 @@ import NewsCard from '../components/NewsCard'
 import {getHeadlines} from "../services/newsService"
 
 
-const Home = ({category}) => {
+const Home = ({category,search}) => {
  
  
   const [articles , setArticles] = useState([])
 
   useEffect(()=>{
     const fetchNews = async ()=>{
-      const data = await getHeadlines(category)
+      const data = await getHeadlines(category,search)
       setArticles(data)
     }
     fetchNews()
-  },[category])
+  },[category,search])
   return (
     <div className='grid gird-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 max-w-7xl mx-auto px-6 py-8 items-center justify-center'>
       
