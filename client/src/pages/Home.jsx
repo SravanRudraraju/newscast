@@ -11,6 +11,7 @@ const Home = ({category,search , bookmarks, setBookmarks,addBookmarks}) => {
   useEffect(()=>{
     const fetchNews = async ()=>{
       const data = await getHeadlines(category,search)
+      
       setArticles(data)
     }
     fetchNews()
