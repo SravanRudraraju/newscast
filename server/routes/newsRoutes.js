@@ -1,6 +1,6 @@
 import express from "express"
 const router = express()
-import { getHeadlines } from "../controller/newsController.js"
+import { getHeadlines } from "../controllers/newsController.js"
 
 router.get("/news",getHeadlines)
 
