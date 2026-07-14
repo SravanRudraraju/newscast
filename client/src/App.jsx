@@ -6,33 +6,37 @@ import NotFound from './pages/NotFound'
 import Bookmarks from './pages/Bookmarks'
 import Navbar from './components/Navbar'
 import NewsCard from './components/NewsCard'
+import { addBookmark , deleteBookmark,getBookmarks } from './services/bookmarkService'
 
 
 const App = () => {
   const [category,setCategory] = useState("general")
   const [search,setSearch] = useState("")
   const [searchInput,setSearchInput] = useState("")
-  const [bookmarks , setBookmarks] = useState(()=>{
-    const savedBookmarks = localStorage.getItem("bookmarks")
-    if(savedBookmarks){
-      return JSON.parse(savedBookmarks)
-    }else{
-      return []
-    }
-  })
-
-  function addBookmarks(news){
-    const alreadyBookmarked = bookmarks.some((bookmark)=>bookmark.url===news.url)
-    if(alreadyBookmarked){
-        setBookmarks(bookmarks.filter((bookmark)=>bookmark.url !== news.url))
-    }else{
-      setBookmarks([...bookmarks,news])
-    }   
-  }
+  const [bookmarks , setBookmarks] = useState([])
 
   useEffect(()=>{
-    localStorage.setItem("bookmarks",JSON.stringify(bookmarks))
-  },[bookmarks])
+    const fetchBookmarks = async()=>{
+      const data = await getBookmarks()
+      setBookmarks(data)
+    }
+    fetchBookmarks()
+    
+  },[])
+
+ async function addBookmarks(news,bookmarkedItem){
+  if(bookmarkedItem){
+    await deleteBookmark(bookmarkedItem._id)
+  }
+  else{
+      await addBookmark(news)
+  }
+    
+    const updatedBookmarks = await getBookmarks()
+    setBookmarks(updatedBookmarks)
+  }
+
+
 
   
   return (

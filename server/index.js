@@ -7,10 +7,12 @@ import bookmarkRoutes from "./routes/bookmarkRoutes.js"
 
 const app = express()
 const port = 3000
+app.use(express.json())
 dotenv.config()
 app.use(cors())
 app.use("/api",newsRoutes)
 app.use("/api/bookmarks",bookmarkRoutes)
+
 
 app.get("/",(req,res)=>{
     res.send("hello from express")

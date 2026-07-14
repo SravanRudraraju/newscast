@@ -2,8 +2,9 @@ import bookmarks from "../models/bookmarks.js"
 
 export const addBookmark = async(req,res)=>{
     try{
+        console.log(req.body);
         const newbookmark = new bookmarks(req.body)  
-        await bookmarks.save()
+        await newbookmark.save()
         res.status(201).json({
         success: true,
         message:"Bookmark added"
@@ -30,10 +31,13 @@ export const deleteBookmark = async(req,res)=>{
     }
 }
 export const getBookmarks = async(req,res)=>{
+    
     try{
-        const bookmarks = await bookmarks.find()
-        res.json(bookmarks)
+        const allBookmarks = await bookmarks.find()
+        
+        res.json(allBookmarks)
     }catch(error){
+        
         res.status(500).json({
             success : false,
             message:error.message

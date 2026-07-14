@@ -3,7 +3,9 @@ import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 
 const NewsCard = ({ news ,bookmarks,setBookmarks,addBookmarks}) => {
 
-    const isBookmarked =  bookmarks.some((bookmark)=> bookmark.url === news.url)      
+    const bookmarkedItem =  bookmarks.find((bookmark)=> bookmark.url === news.url) 
+    
+    const isBookmarked = !!bookmarkedItem
         
 
 
@@ -13,8 +15,8 @@ const NewsCard = ({ news ,bookmarks,setBookmarks,addBookmarks}) => {
                 <div className="relative">
                     <img src={news.urlToImage} alt={news.title} className='w-full h-52 object-cover' />
                     <button
-                        className="absolute top-0 right-3 text-3xl text-red-800" onClick={()=>{
-                            addBookmarks(news)
+                        className="absolute top-0 cursor-pointer right-3 text-3xl text-red-800" onClick={()=>{
+                            addBookmarks(news,bookmarkedItem)
                         }}>
                         {isBookmarked ?  <BsBookmarkFill/> :<BsBookmark/>}
                     </button>

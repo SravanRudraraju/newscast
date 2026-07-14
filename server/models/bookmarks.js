@@ -6,9 +6,11 @@ const bookmarkSchema = new mongoose.Schema({
     url : String,
     urlToImage : String,
     publishedAt : String,
-    source : Object
+    source : Object,
+    author : String,
+    description: String
 })
-const bookmark = mongoose.model("bookmark",bookmarkSchema)
+const bookmarks = mongoose.model("bookmarks",bookmarkSchema)
 
-export default bookmark
+export default bookmarks
 
