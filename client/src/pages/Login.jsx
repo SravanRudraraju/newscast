@@ -17,8 +17,11 @@ const Login = () => {
         );
 
         const data = await response.json();
-
-        console.log(data);
+        if(data.success){
+            localStorage.setItem("token",data.token)
+            localStorage.setItem("user",JSON.stringify(data.user))
+            console.log("Login successful")
+        } 
 
     } catch (error) {
         console.log(error);
