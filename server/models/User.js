@@ -3,15 +3,23 @@ import mongoose from "mongoose"
 const userSchema = new mongoose.Schema({
     googleId : {
         type : String,
-        required : true
+        required : true,
+        unique : true
     },
-    name : String,
+    name :{
+        type : String,
+        required : true
+    } ,
 
     email : {
         type : String,
         required : true,
+        unique : true
     },
-    picture : String
+
+    picture : {
+        type : String
+    }
     },
     {
         timestamps : true

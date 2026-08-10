@@ -18,10 +18,24 @@ export const googleLogin = async (req, res) => {
 
         const payload = ticket.getPayload();
 
-        console.log(payload);
+        const {sub,name,email,picture} = payload
+
+        let user = await User.findOne({googleId : sub})
+
+        if(!user){
+            user = new User({
+                googleId : sub,
+                name,
+                email,
+                picture
+            })
+            await user.save()
+        }
 
         res.json({
-            success: true
+            success: true,
+            message : "Google login successful",
+            user
         });
 
     } catch (error) {
@@ -30,7 +44,5 @@ export const googleLogin = async (req, res) => {
             success: false,
             message: error.message
         });
-
     }
-
 };
