@@ -1,5 +1,5 @@
+import "dotenv/config";
 import express from "express"
-import dotenv from "dotenv"
 import newsRoutes from "./routes/newsRoutes.js"
 import cors from "cors";
 import connectDB from "./config/db.js";
@@ -9,7 +9,6 @@ import AuthRoutes from "./routes/AuthRoutes.js"
 const app = express()
 const port = 3000
 app.use(express.json())
-dotenv.config()
 app.use(cors())
 app.use("/api",newsRoutes)
 app.use("/api/bookmarks",bookmarkRoutes)
