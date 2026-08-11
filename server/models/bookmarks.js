@@ -8,7 +8,12 @@ const bookmarkSchema = new mongoose.Schema({
     publishedAt : String,
     source : Object,
     author : String,
-    description: String
+    description: String,
+    userId : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "User",
+        required : true
+    }
 })
 const bookmarks = mongoose.model("bookmarks",bookmarkSchema)
 

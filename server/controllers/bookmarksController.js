@@ -3,7 +3,10 @@ import bookmarks from "../models/bookmarks.js"
 export const addBookmark = async(req,res)=>{
     try{
         console.log(req.body);
-        const newbookmark = new bookmarks(req.body)  
+        const newbookmark = new bookmarks({
+            ...req.body,
+            userId : req.userId
+        }) 
         await newbookmark.save()
         res.status(201).json({
         success: true,
@@ -18,7 +21,10 @@ export const addBookmark = async(req,res)=>{
 }
 export const deleteBookmark = async(req,res)=>{
     try{
-        await bookmarks.findByIdAndDelete(req.params.id)
+        await bookmarks.findByIdAndDelete({
+            _id : req.params.id,
+            userId  : req.userId
+        })
         res.json({
             success : true,
             message: "Bookmark deleted"
@@ -33,7 +39,7 @@ export const deleteBookmark = async(req,res)=>{
 export const getBookmarks = async(req,res)=>{
     
     try{
-        const allBookmarks = await bookmarks.find()
+        const allBookmarks = await bookmarks.find({userId : req.userId})
         
         res.json(allBookmarks)
     }catch(error){
