@@ -5,7 +5,7 @@ import { useAuth } from "../context/AuthContext";
 const NewsCard = ({ news, bookmarks, setBookmarks, addBookmarks }) => {
     const { user } = useAuth();
     const bookmarkedItem = Array.isArray(bookmarks)
-        ? bookmarks.find((bookmark) => bookmark.url === news.url): undefined;
+        ? bookmarks.find((bookmark) => bookmark.url === news.url) : undefined;
     const isBookmarked = !!bookmarkedItem
 
 
@@ -17,6 +17,9 @@ const NewsCard = ({ news, bookmarks, setBookmarks, addBookmarks }) => {
                     <img src={news.urlToImage} alt={news.title} className='w-full h-52 object-cover' />
                     <button
                         className="absolute top-0 cursor-pointer right-3 text-3xl text-red-800" onClick={() => {
+                            if (!user) {
+                                return;
+                            }
                             addBookmarks(news, bookmarkedItem)
                         }}>
                         {isBookmarked ? <BsBookmarkFill /> : <BsBookmark />}
