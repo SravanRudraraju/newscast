@@ -8,6 +8,7 @@ import Navbar from './components/Navbar'
 import NewsCard from './components/NewsCard'
 import { addBookmark , deleteBookmark,getBookmarks } from './services/bookmarkService'
 import { useAuth } from './context/AuthContext'
+import ProtectedRoute from "./components/ProtectedRoute";
 
 
 const App = () => {
@@ -64,7 +65,11 @@ const App = () => {
         <Route path='/' element={<Home category={category} bookmarks = {bookmarks} setBookmarks={setBookmarks} search = {search} addBookmarks={addBookmarks}/>}  />
         <Route path='/login' element={<Login/>} />
         <Route path='*' element={<NotFound/>} />
-        <Route path='/bookmarks' element={<Bookmarks bookmarks = {bookmarks} addBookmarks={addBookmarks} />} />
+        <Route path='/bookmarks' element={
+          <ProtectedRoute>
+          <Bookmarks bookmarks = {bookmarks} addBookmarks={addBookmarks} />
+          </ProtectedRoute>
+          } />
       </Routes>
     </div>
   )
