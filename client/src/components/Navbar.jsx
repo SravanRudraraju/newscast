@@ -46,10 +46,29 @@ const Navbar = ({ category, setCategory, search, setSearch, searchInput, setSear
                     <BsBookmarkFill />
                 </Link>
 
-                <img className="w-9 h-9 rounded-full cursor-pointer shrink-0" src={profile} alt="profile" />
-                <button onClick={logout} className='cursor-pointer bg-gray-200'>
-                    Logout
-                </button>
+                {user ? (
+                    <>
+                        <img
+                            className="w-9 h-9 rounded-full cursor-pointer shrink-0"
+                            src={user.picture || profile}
+                            alt="profile"
+                        />
+
+                        <button
+                            onClick={logout}
+                            className="cursor-pointer bg-gray-200 px-3 py-2 rounded"
+                        >
+                            Logout
+                        </button>
+                    </>
+                ) : (
+                    <Link
+                        to="/login"
+                        className="cursor-pointer bg-gray-200 px-3 py-2 rounded"
+                    >
+                        Login
+                    </Link>
+                )}
             </div>
 
         </nav>
