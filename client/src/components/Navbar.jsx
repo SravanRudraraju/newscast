@@ -5,46 +5,51 @@ import bookmark from "../assets/bookmark.png"
 import { Link, Links } from 'react-router-dom'
 import { HiMenu } from "react-icons/hi";
 import { BsBookmarkFill } from "react-icons/bs";
+import { useAuth } from "../context/AuthContext";
 
-const Navbar = ({category,setCategory , search, setSearch,searchInput,setSearchInput}) => {
+const Navbar = ({ category, setCategory, search, setSearch, searchInput, setSearchInput }) => {
+    const { user, logout } = useAuth();
     const categories = ["business", "sports", "entertainment", "technology", "health", "science"]
     return (
         <nav className="w-full sticky top-0 z-50 flex items-center justify-between bg-white border-b border-gray-200 px-4 xl:px-8 py-4 shadow-sm">
-            
-            <div className="flex items-center gap-3 shrink-0"> 
+
+            <div className="flex items-center gap-3 shrink-0">
                 <button className="block xl:hidden text-3xl">
                     <HiMenu />
                 </button>
                 <Link className="shrink-0 text-3xl font-black text-red-700 tracking-tight" to="/"> <img className="w-10 h-10 rounded-full cursor-pointer" src={logo} alt="logo" /></Link></div>
             <div className="hidden xl:flex shrink-0">
                 <ul className="flex items-center gap-6 ">
-                {categories.map((category) => (
-                    <li key={category} className="text-gray-700 font-medium hover:text-blue-600 cursor-pointer transition-colors duration-200">
-                        <button className='bg-transparent border-none p-0 text-gray-700 font-medium hover:text-blue-600 cursor-pointer' onClick={()=>{
-                            setCategory(category)
-                        }} to="/">{category}</button>
-                    </li>
-                ))}
-            </ul></div>
-            <div  className="flex-1 mx-4 max-w-xs md:max-w-sm lg:max-w-md">
-                <input 
-                    onChange={(e)=>{
+                    {categories.map((category) => (
+                        <li key={category} className="text-gray-700 font-medium hover:text-blue-600 cursor-pointer transition-colors duration-200">
+                            <button className='bg-transparent border-none p-0 text-gray-700 font-medium hover:text-blue-600 cursor-pointer' onClick={() => {
+                                setCategory(category)
+                            }} to="/">{category}</button>
+                        </li>
+                    ))}
+                </ul></div>
+            <div className="flex-1 mx-4 max-w-xs md:max-w-sm lg:max-w-md">
+                <input
+                    onChange={(e) => {
                         setSearchInput(e.target.value)
-                    }}  
-                    onKeyDown={(e)=>{
-                        if(e.key === "Enter"){
+                    }}
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") {
                             setSearch(searchInput)
                         }
                     }}
-            
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:border-blue-500" type="search" placeholder='search news...' /></div>
+
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:border-blue-500" type="search" placeholder='search news...' /></div>
             <div className="flex items-center gap-4 ">
                 <Link to="/bookmarks" className='text-3xl text-red-800 hidden md:block font-medium hover:text-blue-600 transition-colors duration-200' >
-                 
-                    <BsBookmarkFill/>
-                    </Link>
+
+                    <BsBookmarkFill />
+                </Link>
 
                 <img className="w-9 h-9 rounded-full cursor-pointer shrink-0" src={profile} alt="profile" />
+                <button onClick={logout} className='cursor-pointer bg-gray-200'>
+                    Logout
+                </button>
             </div>
 
         </nav>

@@ -10,7 +10,7 @@ export const addBookmark = async(bookmark)=>{
         },
         body : JSON.stringify(bookmark),
     })
-    return response.json
+    return response.json()
 }
 
 

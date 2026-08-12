@@ -7,24 +7,39 @@ import Bookmarks from './pages/Bookmarks'
 import Navbar from './components/Navbar'
 import NewsCard from './components/NewsCard'
 import { addBookmark , deleteBookmark,getBookmarks } from './services/bookmarkService'
+import { useAuth } from './context/AuthContext'
 
 
 const App = () => {
+  const { user } = useAuth()
   const [category,setCategory] = useState("general")
   const [search,setSearch] = useState("")
   const [searchInput,setSearchInput] = useState("")
   const [bookmarks , setBookmarks] = useState([])
 
   useEffect(()=>{
+    
     const fetchBookmarks = async()=>{
+       if (!user) {
+            setBookmarks([])
+            return
+        }
       const data = await getBookmarks()
-      setBookmarks(data)
+
+      if (Array.isArray(data)) {
+            setBookmarks(data)
+        } else {
+            setBookmarks([])
+        }
     }
     fetchBookmarks()
     
-  },[])
+  },[user])
 
  async function addBookmarks(news,bookmarkedItem){
+   if (!user) {
+        return
+    }
   if(bookmarkedItem){
     await deleteBookmark(bookmarkedItem._id)
   }
@@ -33,7 +48,9 @@ const App = () => {
   }
     
     const updatedBookmarks = await getBookmarks()
-    setBookmarks(updatedBookmarks)
+    if (Array.isArray(updatedBookmarks)) {
+        setBookmarks(updatedBookmarks)
+    }
   }
 
 

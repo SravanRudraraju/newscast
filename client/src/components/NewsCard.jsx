@@ -1,12 +1,13 @@
 import React from 'react'
 import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
+import { useAuth } from "../context/AuthContext";
 
-const NewsCard = ({ news ,bookmarks,setBookmarks,addBookmarks}) => {
-
-    const bookmarkedItem =  bookmarks.find((bookmark)=> bookmark.url === news.url) 
-    
+const NewsCard = ({ news, bookmarks, setBookmarks, addBookmarks }) => {
+    const { user } = useAuth();
+    const bookmarkedItem = Array.isArray(bookmarks)
+        ? bookmarks.find((bookmark) => bookmark.url === news.url): undefined;
     const isBookmarked = !!bookmarkedItem
-        
+
 
 
     return (
@@ -15,10 +16,10 @@ const NewsCard = ({ news ,bookmarks,setBookmarks,addBookmarks}) => {
                 <div className="relative">
                     <img src={news.urlToImage} alt={news.title} className='w-full h-52 object-cover' />
                     <button
-                        className="absolute top-0 cursor-pointer right-3 text-3xl text-red-800" onClick={()=>{
-                            addBookmarks(news,bookmarkedItem)
+                        className="absolute top-0 cursor-pointer right-3 text-3xl text-red-800" onClick={() => {
+                            addBookmarks(news, bookmarkedItem)
                         }}>
-                        {isBookmarked ?  <BsBookmarkFill/> :<BsBookmark/>}
+                        {isBookmarked ? <BsBookmarkFill /> : <BsBookmark />}
                     </button>
                 </div>
                 <div className='flex flex-col h-full p-4'>

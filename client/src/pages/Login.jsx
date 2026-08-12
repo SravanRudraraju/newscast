@@ -1,6 +1,8 @@
 import { GoogleLogin } from "@react-oauth/google";
+import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
+    const { login } = useAuth();
    const handleSuccess = async (credentialResponse) => {
     try {
         const response = await fetch(
@@ -18,8 +20,7 @@ const Login = () => {
 
         const data = await response.json();
         if(data.success){
-            localStorage.setItem("token",data.token)
-            localStorage.setItem("user",JSON.stringify(data.user))
+            login(data.user, data.token);
             console.log("Login successful")
         } 
 
