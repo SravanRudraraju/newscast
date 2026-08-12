@@ -10,7 +10,11 @@ export const addBookmark = async(bookmark)=>{
         },
         body : JSON.stringify(bookmark),
     })
-    return response.json()
+    const data = await response.json()
+    if(!response.ok){
+        throw new Error(data.message || "Failed to fetch bookmarks")
+    }
+    return data
 }
 
 
@@ -21,7 +25,11 @@ export const getBookmarks = async ()=>{
             "Authorization" : `Bearer ${token}`
         }
     })
-    return response.json()
+    const data = await response.json()
+    if(!response.ok){
+        throw new Error(data.message || "Failed to fetch bookmarks")
+    }
+    return data
 }
 
 export const deleteBookmark = async(id)=>{
@@ -33,5 +41,9 @@ export const deleteBookmark = async(id)=>{
         }
 
     })
-    return response.json()
+    const data = await response.json()
+    if(!response.ok){
+        throw new Error(data.message || "Failed to fetch bookmarks")
+    }
+    return data
 }

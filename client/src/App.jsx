@@ -6,70 +6,78 @@ import NotFound from './pages/NotFound'
 import Bookmarks from './pages/Bookmarks'
 import Navbar from './components/Navbar'
 import NewsCard from './components/NewsCard'
-import { addBookmark , deleteBookmark,getBookmarks } from './services/bookmarkService'
+import { addBookmark, deleteBookmark, getBookmarks } from './services/bookmarkService'
 import { useAuth } from './context/AuthContext'
 import ProtectedRoute from "./components/ProtectedRoute";
 
 
 const App = () => {
   const { user } = useAuth()
-  const [category,setCategory] = useState("general")
-  const [search,setSearch] = useState("")
-  const [searchInput,setSearchInput] = useState("")
-  const [bookmarks , setBookmarks] = useState([])
+  const [category, setCategory] = useState("general")
+  const [search, setSearch] = useState("")
+  const [searchInput, setSearchInput] = useState("")
+  const [bookmarks, setBookmarks] = useState([])
 
-  useEffect(()=>{
-    
-    const fetchBookmarks = async()=>{
-       if (!user) {
-            setBookmarks([])
-            return
-        }
+  useEffect(() => {
+
+    const fetchBookmarks = async () => {
+      if (!user) {
+        setBookmarks([])
+        return
+      }
+      try{
       const data = await getBookmarks()
 
       if (Array.isArray(data)) {
-            setBookmarks(data)
-        } else {
-            setBookmarks([])
+        setBookmarks(data)
         }
+      }catch(error){
+        console.log("Failed   to load bookmarks : ",error)
+        setBookmarks([])
+      
+    }
     }
     fetchBookmarks()
-    
-  },[user])
 
- async function addBookmarks(news,bookmarkedItem){
-   if (!user) {
-        return
+  }, [user])
+
+  async function addBookmarks(news, bookmarkedItem) {
+    if (!user) {
+      return
     }
-  if(bookmarkedItem){
-    await deleteBookmark(bookmarkedItem._id)
-  }
-  else{
-      await addBookmark(news)
-  }
-    
-    const updatedBookmarks = await getBookmarks()
-    if (Array.isArray(updatedBookmarks)) {
+    try {
+      if (bookmarkedItem) {
+        await deleteBookmark(bookmarkedItem._id)
+      }
+      else {
+        await addBookmark(news)
+      }
+
+      const updatedBookmarks = await getBookmarks()
+      if (Array.isArray(updatedBookmarks)) {
         setBookmarks(updatedBookmarks)
+      }
+    } catch (error) {
+      console.error("Bookmark error : ", error)
     }
   }
 
 
 
-  
+
   return (
     <div>
-      <Navbar category={category} search={search} setSearch = {setSearch} setCategory={setCategory} searchInput={searchInput} setSearchInput = {setSearchInput} />
-      
+      <Navbar category={category} search={search} setSearch={setSearch} setCategory={setCategory} searchInput={searchInput} setSearchInput={setSearchInput} />
+
       <Routes>
-        <Route path='/' element={<Home category={category} bookmarks = {bookmarks} setBookmarks={setBookmarks} search = {search} addBookmarks={addBookmarks}/>}  />
-        <Route path='/login' element={<Login/>} />
-        <Route path='*' element={<NotFound/>} />
+        <Route path='/' element={<Home category={category} bookmarks={bookmarks} setBookmarks={setBookmarks} search={search} addBookmarks={addBookmarks} />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='*' element={<NotFound />} />
         <Route path='/bookmarks' element={
           <ProtectedRoute>
-          <Bookmarks bookmarks = {bookmarks} addBookmarks={addBookmarks} />
+            <Bookmarks bookmarks={bookmarks} addBookmarks={addBookmarks} />
           </ProtectedRoute>
-          } />
+        } />
       </Routes>
     </div>
   )
