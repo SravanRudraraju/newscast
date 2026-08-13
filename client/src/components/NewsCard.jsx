@@ -1,9 +1,11 @@
 import React from 'react'
 import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
-const NewsCard = ({ news, bookmarks, setBookmarks, addBookmarks }) => {
+const NewsCard = ({ news, bookmarks, addBookmarks }) => {
     const { user } = useAuth();
+    const navigate = useNavigate();
     const bookmarkedItem = Array.isArray(bookmarks)
         ? bookmarks.find((bookmark) => bookmark.url === news.url) : undefined;
     const isBookmarked = !!bookmarkedItem
@@ -16,13 +18,25 @@ const NewsCard = ({ news, bookmarks, setBookmarks, addBookmarks }) => {
                 <div className="relative">
                     <img src={news.urlToImage} alt={news.title} className='w-full h-52 object-cover' />
                     <button
-                        className="absolute top-0 cursor-pointer right-3 text-3xl text-red-800" onClick={() => {
+                        className={`absolute top-3 right-3 text-2xl cursor-pointer transition-all duration-200 ${isBookmarked
+                                ? "text-red-700"
+                                : "text-gray-600 hover:text-red-700"
+                            }`}
+                        title={user ? "Bookmark article" : "Login to bookmark"}
+                        onClick={() => {
+
                             if (!user) {
+                                navigate("/login");
                                 return;
                             }
-                            addBookmarks(news, bookmarkedItem)
-                        }}>
-                        {isBookmarked ? <BsBookmarkFill /> : <BsBookmark />}
+
+                            addBookmarks(news, bookmarkedItem);
+                        }}
+                    >
+                        {isBookmarked
+                            ? <BsBookmarkFill />
+                            : <BsBookmark />
+                        }
                     </button>
                 </div>
                 <div className='flex flex-col h-full p-4'>

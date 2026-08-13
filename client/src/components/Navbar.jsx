@@ -9,6 +9,7 @@ import { useAuth } from "../context/AuthContext";
 
 const Navbar = ({ category, setCategory, search, setSearch, searchInput, setSearchInput }) => {
     const { user, logout } = useAuth();
+    
     const categories = ["business", "sports", "entertainment", "technology", "health", "science"]
     return (
         <nav className="w-full sticky top-0 z-50 flex items-center justify-between bg-white border-b border-gray-200 px-4 xl:px-8 py-4 shadow-sm">
@@ -52,6 +53,7 @@ const Navbar = ({ category, setCategory, search, setSearch, searchInput, setSear
                             className="w-9 h-9 rounded-full cursor-pointer shrink-0"
                             src={user.picture || profile}
                             alt="profile"
+                            referrerPolicy="no-referrer"
                         />
 
                         <button
