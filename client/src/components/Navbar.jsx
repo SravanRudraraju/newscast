@@ -35,16 +35,7 @@ const Navbar = ({ category, setCategory, search, setSearch, searchInput, setSear
                             Home
                         </button>
                     </li>
-                    <li className="text-gray-700 font-medium hover:text-blue-600 cursor-pointer transition-colors duration-200">
-                        <button
-                            className="bg-transparent border-none p-0 text-gray-700 font-medium hover:text-blue-600 cursor-pointer"
-                            onClick={() => {
-                                navigate("/top-headlines")
-                            }}
-                        >
-                            Top Headlines
-                        </button>
-                    </li>
+                    
                     {categories.map((category) => (
                         <li key={category} className="text-gray-700 font-medium hover:text-blue-600 cursor-pointer transition-colors duration-200">
 

@@ -1,8 +1,11 @@
 import { GoogleLogin } from "@react-oauth/google";
 import { useAuth } from "../context/AuthContext";
+import { Link, useNavigate } from 'react-router-dom'
 
 const Login = () => {
     const { login } = useAuth();
+    const navigate = useNavigate();
+    
    const handleSuccess = async (credentialResponse) => {
     try {
         const response = await fetch(
@@ -22,6 +25,7 @@ const Login = () => {
         if(data.success){
             login(data.user, data.token);
             console.log("Login successful")
+            navigate("/")
         } 
 
     } catch (error) {
