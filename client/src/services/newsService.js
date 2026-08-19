@@ -1,8 +1,8 @@
 
-
+const BASE_URL = `${import.meta.env.VITE_API_URL}/api/news`
 
 const setUrl =(category,search,page)=>{
-    const url = `http://localhost:3000/api/news?category=${category}&search=${search}&page=${page}`
+    const url = `${BASE_URL}?category=${category}&search=${search}&page=${page}`
     return url
 } 
 
