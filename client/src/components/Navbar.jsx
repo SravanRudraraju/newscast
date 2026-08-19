@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import logo from "../assets/NClogo.png"
 import profile from "../assets/profile.png"
 import bookmark from "../assets/bookmark.png"
@@ -10,13 +10,16 @@ import { useAuth } from "../context/AuthContext";
 const Navbar = ({ category, setCategory, search, setSearch, searchInput, setSearchInput }) => {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
+    const [menuOpen, setMenuOpen] = useState(false);
 
     const categories = ["business", "sports", "entertainment", "technology", "health", "science"]
     return (
         <nav className="w-full sticky top-0 z-50 flex items-center justify-between bg-white border-b border-gray-200 px-4 xl:px-8 py-4 shadow-sm">
 
             <div className="flex items-center gap-3 shrink-0">
-                <button className="block xl:hidden text-3xl">
+                <button className="block xl:hidden text-3xl" onClick={() => {
+                    setMenuOpen(!menuOpen)
+                }}>
                     <HiMenu />
                 </button>
                 <Link className="shrink-0 text-3xl font-black text-red-700 tracking-tight" to="/"> <img className="w-10 h-10 rounded-full cursor-pointer" src={logo} alt="logo" /></Link></div>
@@ -35,7 +38,7 @@ const Navbar = ({ category, setCategory, search, setSearch, searchInput, setSear
                             Home
                         </button>
                     </li>
-                    
+
                     {categories.map((category) => (
                         <li key={category} className="text-gray-700 font-medium hover:text-blue-600 cursor-pointer transition-colors duration-200">
 
@@ -47,7 +50,49 @@ const Navbar = ({ category, setCategory, search, setSearch, searchInput, setSear
                             }} to="/">{category}</button>
                         </li>
                     ))}
-                </ul></div>
+                </ul>
+            </div>
+            {menuOpen && (
+                <div className="absolute top-full left-0 w-full bg-white border-b border-gray-200 shadow-md xl:hidden">
+
+                    <ul className="flex flex-col">
+
+                        <li>
+                            <button
+                                className="w-full text-left px-6 py-4 hover:bg-gray-100"
+                                onClick={() => {
+                                    setCategory("general")
+                                    setSearch("")
+                                    setSearchInput("")
+                                    navigate("/")
+                                    setMenuOpen(false)
+                                }}
+                            >
+                                Home
+                            </button>
+                        </li>
+
+                        {categories.map((categoryName) => (
+                            <li key={categoryName}>
+                                <button
+                                    className="w-full text-left px-6 py-4 hover:bg-gray-100"
+                                    onClick={() => {
+                                        setCategory(categoryName)
+                                        setSearch("")
+                                        setSearchInput("")
+                                        navigate("/")
+                                        setMenuOpen(false)
+                                    }}
+                                >
+                                    {categoryName}
+                                </button>
+                            </li>
+                        ))}
+
+                    </ul>
+
+                </div>
+            )}
             <div className="flex-1 mx-4 max-w-xs md:max-w-sm lg:max-w-md">
                 <input
                     onChange={(e) => {
