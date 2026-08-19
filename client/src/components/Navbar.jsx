@@ -106,7 +106,7 @@ const Navbar = ({ category, setCategory, search, setSearch, searchInput, setSear
 
                     className="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:border-blue-500" type="search" placeholder='search news...' /></div>
             <div className="flex items-center gap-4 ">
-                <Link to="/bookmarks" className='text-3xl text-red-800 hidden md:block font-medium hover:text-blue-600 transition-colors duration-200' >
+                <Link to="/bookmarks" className='text-3xl text-gray-600 hidden md:block font-medium hover:text-gray-800 transition-colors duration-200' >
 
                     <BsBookmarkFill />
                 </Link>
@@ -122,17 +122,17 @@ const Navbar = ({ category, setCategory, search, setSearch, searchInput, setSear
 
                         <button
                             onClick={logout}
-                            className="cursor-pointer bg-gray-200 px-3 py-2 rounded"
+                             className="relative text-md font-medium text-gray-500 hover:text-gray-700 transition-colors duration-200 cursor-pointer after:absolute after:left-0 after:-bottom-1 after:h-[1px] after:w-0 after:bg-gray-700 after:transition-all after:duration-200 hover:after:w-full"
                         >
-                            Logout
+                            Sign-out
                         </button>
                     </>
                 ) : (
                     <Link
                         to="/login"
-                        className="cursor-pointer bg-gray-200 px-3 py-2 rounded"
+                         className="relative text-md font-medium text-gray-500 hover:text-gray-700 transition-colors duration-200 cursor-pointer after:absolute after:left-0 after:-bottom-1 after:h-[1px] after:w-0 after:bg-gray-700 after:transition-all after:duration-200 hover:after:w-full"
                     >
-                        Login
+                        Sign-in
                     </Link>
                 )}
             </div>
