@@ -2,14 +2,15 @@ import React from 'react'
 import logo from "../assets/NClogo.png"
 import profile from "../assets/profile.png"
 import bookmark from "../assets/bookmark.png"
-import { Link, Links } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { HiMenu } from "react-icons/hi";
 import { BsBookmarkFill } from "react-icons/bs";
 import { useAuth } from "../context/AuthContext";
 
 const Navbar = ({ category, setCategory, search, setSearch, searchInput, setSearchInput }) => {
     const { user, logout } = useAuth();
-    
+    const navigate = useNavigate();
+
     const categories = ["business", "sports", "entertainment", "technology", "health", "science"]
     return (
         <nav className="w-full sticky top-0 z-50 flex items-center justify-between bg-white border-b border-gray-200 px-4 xl:px-8 py-4 shadow-sm">
@@ -21,10 +22,37 @@ const Navbar = ({ category, setCategory, search, setSearch, searchInput, setSear
                 <Link className="shrink-0 text-3xl font-black text-red-700 tracking-tight" to="/"> <img className="w-10 h-10 rounded-full cursor-pointer" src={logo} alt="logo" /></Link></div>
             <div className="hidden xl:flex shrink-0">
                 <ul className="flex items-center gap-6 ">
+                    <li className="text-gray-700 font-medium hover:text-blue-600 cursor-pointer transition-colors duration-200">
+                        <button
+                            className="bg-transparent border-none p-0 text-gray-700 font-medium hover:text-blue-600 cursor-pointer"
+                            onClick={() => {
+                                setSearch("")
+                                setSearchInput("")
+                                setCategory("general")
+                                navigate("/")
+                            }}
+                        >
+                            Home
+                        </button>
+                    </li>
+                    <li className="text-gray-700 font-medium hover:text-blue-600 cursor-pointer transition-colors duration-200">
+                        <button
+                            className="bg-transparent border-none p-0 text-gray-700 font-medium hover:text-blue-600 cursor-pointer"
+                            onClick={() => {
+                                navigate("/top-headlines")
+                            }}
+                        >
+                            Top Headlines
+                        </button>
+                    </li>
                     {categories.map((category) => (
                         <li key={category} className="text-gray-700 font-medium hover:text-blue-600 cursor-pointer transition-colors duration-200">
+
                             <button className='bg-transparent border-none p-0 text-gray-700 font-medium hover:text-blue-600 cursor-pointer' onClick={() => {
                                 setCategory(category)
+                                setSearch("")
+                                setSearchInput("")
+                                navigate("/")
                             }} to="/">{category}</button>
                         </li>
                     ))}
