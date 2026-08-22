@@ -1,4 +1,4 @@
-const BASE_URL = `${import.meta.env.VITE_API_URL}/api/news`
+const BASE_URL = `${import.meta.env.VITE_API_URL}/api/bookmarks`
 
 export const addBookmark = async(bookmark)=>{
     const token = localStorage.getItem("token")
